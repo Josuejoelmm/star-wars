@@ -15,5 +15,6 @@ This is an application to show the main Star Wars characters, you can filter by 
 * [ReactJS](https://reactjs.org/) - React JS / Hooks
 * [Redux](https://redux.js.org/)
 * [Axios](https://www.npmjs.com/package/axios)
+* [Material-UI](https://material-ui.com/)
 
 ###Thanks for your visit
