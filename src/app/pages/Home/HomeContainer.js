@@ -1,25 +1,24 @@
 import SearchForm from './SearchForm';
 import CardsList from './CardsList';
 import Loader from '../../componets/Loader';
-import styled from 'styled-components';
 import usePeopleState from '../../hooks/usePeopleState';
 
-const HomeContainer = styled.section`
-    padding: 4em 2em;
-    background: lightgrey;
-`;
+const styles = {
+    padding: '4em 2em',
+    background: 'lightgrey'
+}
 
-export default function Home() {
+export default function HomeContainer() {
     const state = usePeopleState();
 
     return (
-        <HomeContainer>
+        <div style={styles}>
             <SearchForm />
             {
                 !state.isLoading ?
                 <CardsList people={state.people} /> :
                 <Loader />
             }
-        </HomeContainer>
+        </div>
     )
 }

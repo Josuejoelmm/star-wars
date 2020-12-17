@@ -1,0 +1,27 @@
+.Navbar__container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.input_brk_width {
+    width: 100% !important;
+}
+.mb__sp {
+    margin-bottom: 10px !important;
+}
+
+@media (min-width: 576px) {
+    .Navbar__container {
+        flex-direction: row;        
+    }
+    .Margin__Right {
+        margin-right: 10px !important;
+    }
+    .mb__sp {
+        margin-bottom: 0 !important;
+    }
+    .input_brk_width {
+      max-width: 350px !important;
+      width: 50% !important;
+    }
+}

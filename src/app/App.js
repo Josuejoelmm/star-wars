@@ -1,8 +1,6 @@
 import { Provider } from 'react-redux';
 import store from '../state/store';
-
-/* COMPONENTS */
-import Home from './pages/Home/Home';
+import Home from './pages/Home/HomeContainer';
 
 function App() {
   return (
