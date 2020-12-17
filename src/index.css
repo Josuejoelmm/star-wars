@@ -1,0 +1,12 @@
+body, #root {
+    margin: 0;
+    display: flex;
+    flex: 1 1;
+}
+
+/*FULL HEIGHT*/
+html {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
