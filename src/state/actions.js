@@ -14,10 +14,10 @@ export const getPeople = () => {
     }
 };
 
-export const deleteCharacter = (characterName) => (
+export const deleteCharacter = (index) => (
     {
         type: ACTIONS.DELETE_CHARACTER,
-        characterName
+        index
     }
 )
 

@@ -1,6 +1,8 @@
 import SearchForm from './SearchForm';
 import CardsList from './CardsList';
 import Loader from '../../componets/Loader';
+import CaracterNotFound from './CaracterNotFound';
+import FetchErrorMsg from './FetchErrorMsg';
 import usePeopleState from '../../hooks/usePeopleState';
 
 const styles = {
@@ -19,9 +21,11 @@ export default function HomeContainer() {
             <SearchForm />
             {
                 !state.isLoading ?
-                <CardsList people={state.people} /> :
+                <CardsList people={state.people} notCharacterFound={state.notCharacterFound} /> :
                 <Loader />
             }
+            { state.notCharacterFound && <CaracterNotFound notFoundMsg={state.notCharacterFound} /> }
+            { state.errorFetchPeople && <FetchErrorMsg errorMsg={state.errorFetchPeople} /> }
         </div>
     )
 }

@@ -1,66 +1,40 @@
-import { useState } from 'react';
+import { useState, createRef, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { filterCharacters, clearCharacters } from '../../../../state/actions';
 import Button from '@material-ui/core/Button';
-import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import MaterialStyles from './materialStyles';
 import './styles.css';
-
-const useStyles = makeStyles((theme) => ({
-    wrapper: {
-        display: 'flex',
-        marginBottom: '20px'
-    },
-    search: {
-      position: 'relative',
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
-      '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
-      },
-      marginRight: theme.spacing(2),
-      marginLeft: 0,
-    },
-    searchIcon: {
-      padding: theme.spacing(0, 2),
-      height: '100%',
-      position: 'absolute',
-      pointerEvents: 'none',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    inputRoot: {
-      color: 'inherit',
-    },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
-        width: '20ch',
-      },
-    }
-  }));
 
 export default function SearchForm() {
     const [query, setQuery] = useState('');
     const dispatch = useDispatch();
-    const classes = useStyles();
+    const classes = MaterialStyles();
+    const searchButton = useRef(null);
+    const inputText = useRef(null);
 
     const onInputChange = (e) => {
-        setQuery(e.target.value)
+        setQuery(e.target.value);
+        if (!e.target.value) {
+            dispatch(clearCharacters());
+        }
     }
     
     const onFilter = () => {
         dispatch(filterCharacters(query));
     }
     
-    const onClear = () => {
-        dispatch(clearCharacters());
+    const onKeyUpSearchInput = (e) => {
+        if (e.keyCode === 13) {
+            const button = searchButton.current;
+            button.click();
+        }
     }
+    
+    useEffect(() => {
+        inputText.current.click();
+    }, [])
 
     return (
         <div className={"Navbar__container " + classes.wrapper}>
@@ -69,6 +43,8 @@ export default function SearchForm() {
                     <SearchIcon />
                 </div>
                 <InputBase
+                    ref={inputText}
+                    onKeyUp={onKeyUpSearchInput}
                     onChange={onInputChange}
                     placeholder="Character name…"
                     classes={{
@@ -79,12 +55,12 @@ export default function SearchForm() {
                 />
             </div>
             <Button 
-              className="Margin__Right mb__sp" 
-              variant="contained" color="primary" 
-              onClick={onFilter}>
-                Search
+                ref={searchButton}
+                className="Margin__Right mb__sp" 
+                variant="contained" color="primary" 
+                onClick={onFilter}>
+                    Search
             </Button>
-            <Button variant="contained" onClick={onClear}>See all</Button>
         </div>
     )
 }

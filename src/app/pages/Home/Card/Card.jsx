@@ -15,12 +15,11 @@ const useStyles = makeStyles({
     }
   });
 
-export default function Card({ singleCharacter: { name, height, hair_color, skin_color, gender, mass }}) {
+export default function Card({ singleCharacter: { name, height, hair_color, skin_color, gender, mass }, index}) {
     const dispatch = useDispatch();
     const classes = useStyles();
-
     const onDelete = () => {
-        dispatch(deleteCharacter(name));
+        dispatch(deleteCharacter(index));
     }
 
     return (

@@ -4,8 +4,8 @@ const initalState = {
     people: [],
     allCharacters: [],
     isLoading: false,
-    searchQuery: '',
-    errorFetchPeople: ''
+    errorFetchPeople: '',
+    notCharacterFound: ''
 }
 
 const reducer = (state = initalState, action) => {
@@ -29,21 +29,33 @@ const reducer = (state = initalState, action) => {
             isLoading: false
         }
      case ACTIONS.DELETE_CHARACTER:
+         const index = action.index;
         return {
             ...state,
-            people: state.people.filter(character => character.name !== action.characterName)
+            people: [...state.people.slice(0, index), ...state.people.slice(index + 1)]
         }
      case ACTIONS.FILTER_CHARACTER:
+        const filteredCharacters = state.allCharacters.filter(character => {
+            return character.name.toLowerCase().includes(action.query.toLowerCase());
+        });
+        
+        if (filteredCharacters.length === 0) {
+            return {
+                ...state,
+                notCharacterFound: 'no character was found',
+                people: filteredCharacters
+            }
+        }
         return {
             ...state,
-            people: state.people.filter(character => {
-                return character.name.toLowerCase().includes(action.query.toLowerCase());
-            })
+            people: filteredCharacters,
+            notCharacterFound: ''
         }
      case ACTIONS.CLEAR_CHARACTERS:
         return {
             ...state,
-            people: state.allCharacters
+            people: state.allCharacters,
+            notCharacterFound: ''
         }
      default:
          return state;
